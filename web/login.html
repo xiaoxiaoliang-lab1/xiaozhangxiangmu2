@@ -1,0 +1,116 @@
+﻿
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>税务管理系统</title>
+
+	<link rel='stylesheet' href='css/bootstrap.min.css'>
+
+	<!---图标库--->
+<!--	<link rel='stylesheet' href="https://unicons.iconscout.com/release/v2.1.9/css/unicons.css">-->
+	<link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.9/css/unicons.css">
+	<link rel="stylesheet" href="css/style.css">
+	<script src="jquery.min.js"></script>
+	<script>
+		$(function (){
+			$("#xiao").blur(function () {
+				//获取值name值
+				var name = $(this).val();
+
+				$.get("yanzheng",{name:name},function (date){
+					var span = $("#sname");
+					if (date=="true"){
+						span.html("")
+					}else {
+						span.html("验证码有误")
+					}
+				},"text")
+
+			})
+		})
+
+
+		$(function (){
+			$("#formm").submit(function (e){
+				e.preventDefault();
+				$.post("login",$(this).serialize(),function (date){
+					if (date=="true"){
+						location.href="first.jsp"
+					}else {
+						alert("账号或密码错误")
+					}
+				},"text")
+			})
+		})
+	</script>
+
+	<script>
+		window.onload = function (){
+			var img = document.getElementById("img");
+			img.onclick = function (){
+				var date = new Date().getTime();
+				img.src="huizhi?"+date
+			}
+		}
+	</script>
+
+
+</head>
+
+<body>
+
+
+	<div class="section">
+		<div class="container">
+			<div class="row full-height justify-content-center">
+				<div class="col-12 text-center align-self-center py-5">
+					<div class="section pb-5 pt-5 pt-sm-2 text-center">
+
+						<div class="card-3d-wrap mx-auto">
+							<div class="card-3d-wrapper">
+								<div class="card-front">
+									<div class="center-wrap">
+										<div class="section text-center">
+											<h4 class="mb-4 pb-3">登录</h4>
+											<form method="post" action="" id="formm">
+												<div class="form-group">
+													<input type="text" name="loguser" class="form-style"
+						 								placeholder="账号" id="logmail" autocomplete="off" required  >
+													<i class="input-icon uil uil-at"></i>
+												</div>
+
+												<div class="form-group mt-2">
+													<input type="password" name="logpass" class="form-style"
+														placeholder="密码" id="logepass" autocomplete="off" >
+													<i class="input-icon uil uil-lock-alt"></i>
+												</div>
+
+												<div class="form-group mt-2">
+													<input type="text" name="logpass" class="form-style"
+														placeholder="验证码" id="xiao" autocomplete="off">
+													<img src="huizhi" id="img" style="margin:5px 10px ">
+													<span id="sname" style="color: red ;font-size: 20px"></span>
+													<i class="input-icon uil uil-lock-alt"></i>
+												</div>
+
+												<input type="checkbox" class="custom-control-input" id="check1" name="save"
+													   value="save">
+												<label class="custom-control-label" for="check1">记住密码&nbsp;&nbsp;</label><br>
+												<input class="btn mt-4" type="submit" value="登录">
+											</form>
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+</html>
